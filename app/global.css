@@ -1,0 +1,299 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/cormorant-garamond/wght.css";
+@import "@fontsource-variable/cormorant-garamond/wght-italic.css";
+
+@import "tailwindcss";
+@import "@agent-native/toolkit/styles.css";
+
+@source "./**/*.{ts,tsx}";
+
+@theme inline {
+  --font-display: "Cormorant Garamond Variable", "Cormorant Garamond", Georgia, serif;
+}
+
+:root {
+  --background: 40 33% 97%;
+  --foreground: 75 8% 16%;
+  --card: 40 33% 97%;
+  --card-foreground: 75 8% 16%;
+  --popover: 40 33% 97%;
+  --popover-foreground: 75 8% 16%;
+  --primary: 97 13% 27%;
+  --primary-foreground: 40 33% 97%;
+  --secondary: 43 30% 92%;
+  --secondary-foreground: 97 13% 27%;
+  --muted: 43 30% 92%;
+  --muted-foreground: 65 3% 44%;
+  --accent: 43 30% 92%;
+  --accent-foreground: 97 13% 27%;
+  --destructive: 0 91% 71%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 60 12% 83%;
+  --input: 60 12% 83%;
+  --ring: 97 13% 27%;
+  --radius: 0.125rem;
+  --wash: 75 12% 91%;
+  --sidebar-background: 43 30% 92%;
+  --sidebar-foreground: 65 3% 44%;
+  --sidebar-primary: 97 13% 27%;
+  --sidebar-primary-foreground: 40 33% 97%;
+  --sidebar-accent: 43 30% 92%;
+  --sidebar-accent-foreground: 97 13% 27%;
+  --sidebar-border: 60 12% 83%;
+  --sidebar-ring: 97 13% 27%;
+  --chat-sidebar-width: 17.25rem;
+  --chat-sidebar-content-inset: 0.5rem;
+  --chat-sidebar-row-padding: 0.75rem;
+  --chat-sidebar-title-fade: 1.25rem;
+}
+
+.chat-layout-shell {
+  --agent-layout-left-drawer-expanded-width: var(--chat-sidebar-width);
+  --agent-native-lower-surface: var(--agent-kit-nav-surface);
+}
+
+.agentkit-chat-empty-copy {
+  text-align: center;
+}
+
+.agentkit-chat-empty-copy h1 {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.agent-kit-chat-footer-stack {
+  inline-size: min(100%, 47rem);
+  margin-inline: auto;
+  pointer-events: auto;
+}
+
+.agent-kit-chat-footer-stack > .agentkit-composer-stack {
+  inline-size: 100%;
+}
+
+.agent-kit-chat-guided-question {
+  max-block-size: min(32rem, 58dvh);
+  overflow: auto;
+  margin-block-end: 0.5rem;
+  border: 1px solid var(--agentkit-border);
+  border-radius: var(--agentkit-radius);
+  background: var(--agentkit-surface);
+  box-shadow: var(--agentkit-elevation);
+}
+
+.chat-sidebar-history .an-chat-history__list {
+  padding-top: 0;
+}
+
+.chat-sidebar-history .an-chat-history__section-label {
+  padding: 8px
+    calc(var(--chat-sidebar-content-inset) + var(--chat-sidebar-row-padding))
+    5px;
+  color: hsl(var(--sidebar-foreground) / 0.66);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.chat-sidebar-history.an-chat-history--rail .an-chat-history-row {
+  margin-inline: var(--chat-sidebar-content-inset);
+  border-radius: calc(var(--radius) + 2px);
+}
+
+.chat-sidebar-history.an-chat-history--rail .an-chat-history-row__button {
+  min-height: 34px;
+  padding-block: 7px;
+  padding-inline: var(--chat-sidebar-row-padding);
+  color: hsl(var(--sidebar-foreground));
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row--has-menu
+  .an-chat-history-row__button {
+  padding-inline-end: calc(var(--chat-sidebar-row-padding) + 1.5rem);
+}
+
+.chat-sidebar-history .an-chat-history-row__title {
+  flex: 1 1 auto;
+  color: hsl(var(--sidebar-accent-foreground));
+  font-size: 13px;
+  font-weight: 400;
+  text-overflow: clip;
+}
+
+.chat-sidebar-thread-title-shell {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-sidebar-thread-title {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.chat-sidebar-thread-running {
+  color: hsl(var(--sidebar-foreground) / 0.72);
+}
+
+.chat-sidebar-thread-title[data-overflow="true"] {
+  mask-image: linear-gradient(
+    to right,
+    hsl(var(--foreground)) 0,
+    hsl(var(--foreground)) calc(100% - var(--chat-sidebar-title-fade)),
+    hsl(var(--foreground) / 0) 100%
+  );
+}
+
+.chat-sidebar-thread-title__content {
+  display: block;
+  width: max-content;
+  transform: translateX(0);
+}
+
+.an-chat-history-row:hover
+  .chat-sidebar-thread-title[data-overflow="true"]
+  .chat-sidebar-thread-title__content {
+  animation: chat-sidebar-title-reveal
+    var(--chat-sidebar-title-duration, 1800ms) ease-in-out 350ms;
+}
+
+.chat-sidebar-thread-details {
+  border-color: hsl(var(--sidebar-border));
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row__menu-trigger--pinned {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row:hover
+  .an-chat-history-row__menu-trigger--pinned,
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row:focus-within
+  .an-chat-history-row__menu-trigger--pinned,
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row__menu-trigger--pinned[aria-expanded="true"] {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+@keyframes chat-sidebar-title-reveal {
+  to {
+    transform: translateX(calc(-1 * var(--chat-sidebar-title-shift, 0px)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .an-chat-history-row:hover .chat-sidebar-thread-title__content {
+    animation: none;
+  }
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row--active
+  .an-chat-history-row__button {
+  background: hsl(var(--sidebar-accent));
+  color: hsl(var(--sidebar-accent-foreground));
+}
+
+.dark {
+  --background: 75 10% 10%;
+  --foreground: 40 25% 92%;
+  --card: 75 10% 13%;
+  --card-foreground: 40 25% 92%;
+  --popover: 75 10% 13%;
+  --popover-foreground: 40 25% 92%;
+  --primary: 85 18% 70%;
+  --primary-foreground: 75 10% 10%;
+  --secondary: 75 8% 17%;
+  --secondary-foreground: 40 25% 92%;
+  --muted: 75 8% 16%;
+  --muted-foreground: 60 8% 62%;
+  --accent: 75 8% 17%;
+  --accent-foreground: 40 25% 92%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 75 6% 24%;
+  --input: 75 6% 24%;
+  --ring: 85 18% 70%;
+  --radius: 0.125rem;
+  --wash: 75 8% 15%;
+  --sidebar-background: 75 10% 13%;
+  --sidebar-foreground: 60 8% 62%;
+  --sidebar-primary: 85 18% 70%;
+  --sidebar-primary-foreground: 75 10% 10%;
+  --sidebar-accent: 75 8% 16%;
+  --sidebar-accent-foreground: 40 25% 92%;
+  --sidebar-border: 75 6% 20%;
+  --sidebar-ring: 85 18% 70%;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter Variable", "Inter", sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.22);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.34);
+}
+
+/* Swiper Customizations for Form & Field aesthetics */
+.swiper-pagination-bullet {
+  background: hsl(var(--foreground)) !important;
+  opacity: 0.25;
+  transition: all 0.3s ease;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  background: hsl(var(--primary)) !important;
+  width: 20px !important;
+  border-radius: 2px !important;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  color: hsl(var(--primary)) !important;
+  background: hsl(var(--background) / 0.85);
+  backdrop-filter: blur(4px);
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 2px;
+  border: 1px solid hsl(var(--border));
+  transition: all 0.2s ease;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: hsl(var(--background));
+  border-color: hsl(var(--primary));
+}
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 13px !important;
+  font-weight: 600;
+}
+
