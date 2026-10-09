@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import {
   ArrowRightIcon,
   CircleCheckIcon,
+  FileTextIcon,
   PlusIcon,
   ShieldIcon,
   ShoppingBagIcon,
@@ -23,6 +24,7 @@ export default function AdminDashboardRoute() {
     deleteProduct,
     adminOrders,
     updateAdminOrderStatus,
+    openReceipt,
   } = useShopStore();
 
   const [activeTab, setActiveTab] = useState<"products" | "orders" | "promos">(
@@ -419,6 +421,7 @@ export default function AdminDashboardRoute() {
                   <th className="py-3 px-4">Total</th>
                   <th className="py-3 px-4">Status</th>
                   <th className="py-3 px-4">Tracking</th>
+                  <th className="py-3 px-4 text-right">Receipt</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -454,6 +457,17 @@ export default function AdminDashboardRoute() {
                     </td>
                     <td className="py-3 px-4 text-muted-foreground text-[11px]">
                       {ord.trackingNumber}
+                    </td>
+                    <td className="py-3 px-4 text-right">
+                      <button
+                        type="button"
+                        onClick={() => openReceipt(ord)}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] border border-border text-foreground hover:border-primary hover:text-primary transition-colors rounded-xs"
+                        title="View Customer Receipt"
+                      >
+                        <FileTextIcon size={13} />
+                        <span>Receipt</span>
+                      </button>
                     </td>
                   </tr>
                 ))}

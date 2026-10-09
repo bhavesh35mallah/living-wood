@@ -53,6 +53,13 @@ export interface UserOrder {
   total: number;
   trackingNumber: string;
   items: UserOrderItem[];
+  customerName?: string;
+  customerEmail?: string;
+  shippingAddress?: string;
+  subtotal?: number;
+  discount?: number;
+  shippingFee?: number;
+  paymentMethod?: string;
 }
 
 export interface User {
@@ -139,9 +146,15 @@ interface ShopStore {
   // Mock Checkout
   isCheckoutOpen: boolean;
   orderNumber: string | null;
+  latestPlacedOrder: UserOrder | null;
   openCheckout: () => void;
   closeCheckout: () => void;
   completeCheckout: () => string;
+
+  // Order Receipt Modal
+  viewingReceiptOrder: UserOrder | null;
+  openReceipt: (order: UserOrder) => void;
+  closeReceipt: () => void;
 
   // Inventory & Admin Dashboard
   inventoryProducts: Product[];
@@ -530,6 +543,7 @@ export const useShopStore = create<ShopStore>()(
       // Checkout state
       isCheckoutOpen: false,
       orderNumber: null,
+      latestPlacedOrder: null,
       openCheckout: () => set({ isCheckoutOpen: true, orderNumber: null }),
       closeCheckout: () => set({ isCheckoutOpen: false, orderNumber: null }),
       completeCheckout: () => {
@@ -542,6 +556,7 @@ export const useShopStore = create<ShopStore>()(
         const shipping = subtotal >= 100 ? 0 : 10;
         const total = Math.round(subtotal - discountAmount + shipping);
 
+        const currentUser = get().user;
         const newOrder: UserOrder = {
           id: orderNum,
           date: new Date().toLocaleDateString("en-US", {
@@ -559,9 +574,17 @@ export const useShopStore = create<ShopStore>()(
             src: i.src,
             swatchName: i.swatchName,
           })),
+          customerName: currentUser?.name || "Eleanor Vance",
+          customerEmail: currentUser?.email || "eleanor.vance@example.com",
+          shippingAddress: currentUser?.addresses[0]
+            ? `${currentUser.addresses[0].street}, ${currentUser.addresses[0].city}, ${currentUser.addresses[0].state} ${currentUser.addresses[0].zip}`
+            : "742 Evergreen Terrace, Apt 4B, Portland, OR 97201",
+          subtotal,
+          discount: discountAmount,
+          shippingFee: shipping,
+          paymentMethod: "Visa ending in •••• 4242",
         };
 
-        const currentUser = get().user;
         if (currentUser) {
           set({
             user: {
@@ -573,6 +596,7 @@ export const useShopStore = create<ShopStore>()(
 
         set((state) => ({
           orderNumber: orderNum,
+          latestPlacedOrder: newOrder,
           cart: [],
           appliedDiscount: null,
           adminOrders: [newOrder, ...state.adminOrders],
@@ -580,6 +604,11 @@ export const useShopStore = create<ShopStore>()(
 
         return orderNum;
       },
+
+      // Order Receipt Modal state
+      viewingReceiptOrder: null,
+      openReceipt: (order: UserOrder) => set({ viewingReceiptOrder: order }),
+      closeReceipt: () => set({ viewingReceiptOrder: null }),
 
       // Admin & Inventory state
       inventoryProducts: initialCatalogProducts,

@@ -297,3 +297,17 @@
   font-weight: 600;
 }
 
+@media print {
+  header,
+  footer,
+  nav,
+  aside {
+    display: none !important;
+  }
+  body,
+  html {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+}
+

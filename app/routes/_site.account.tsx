@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router";
 import {
   ArrowRightIcon,
+  DownloadIcon,
+  FileTextIcon,
   HeartIcon,
   LogOutIcon,
   MapPinIcon,
@@ -28,6 +30,7 @@ export default function AccountRoute() {
     updateUser,
     addAddress,
     deleteAddress,
+    openReceipt,
   } = useShopStore();
 
   const [activeTab, setActiveTab] = useState<
@@ -252,7 +255,17 @@ export default function AccountRoute() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => openReceipt(order)}
+                        className="flex items-center gap-1.5 px-3 py-1 text-xs border border-border text-foreground hover:border-primary hover:text-primary transition-colors rounded-xs"
+                        title="View & Download Receipt"
+                      >
+                        <FileTextIcon size={14} />
+                        <span>Receipt</span>
+                      </button>
+
                       <span
                         className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium ${
                           order.status === "Delivered"

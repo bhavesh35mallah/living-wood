@@ -3,6 +3,7 @@ import { useShopStore } from "@/lib/store";
 import {
   ArrowRightIcon,
   CircleCheckIcon,
+  DownloadIcon,
   PackageCheckIcon,
   TruckIcon,
   XIcon,
@@ -15,6 +16,8 @@ export function CheckoutModal() {
     cart,
     appliedDiscount,
     orderNumber,
+    latestPlacedOrder,
+    openReceipt,
     completeCheckout,
   } = useShopStore();
 
@@ -127,14 +130,29 @@ export function CheckoutModal() {
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={closeCheckout}
-                className="mt-8 flex h-11 items-center gap-3 rounded-sm bg-primary px-6 text-xs font-medium text-primary-foreground hover:opacity-90"
-              >
-                Back to the shop
-                <ArrowRightIcon />
-              </button>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (latestPlacedOrder) {
+                      openReceipt(latestPlacedOrder);
+                    }
+                  }}
+                  className="flex h-11 items-center gap-2 rounded-sm bg-primary px-5 text-xs font-medium text-primary-foreground hover:opacity-90 transition-opacity"
+                >
+                  <DownloadIcon size={14} />
+                  <span>View &amp; Download Receipt</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={closeCheckout}
+                  className="flex h-11 items-center gap-2 rounded-sm border border-border px-5 text-xs font-medium text-foreground hover:bg-muted transition-colors"
+                >
+                  <span>Back to the shop</span>
+                  <ArrowRightIcon size={14} />
+                </button>
+              </div>
             </div>
           ) : (
             /* Checkout Form */

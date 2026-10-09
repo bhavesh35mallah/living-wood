@@ -10,6 +10,7 @@ import { CheckoutModal } from "@/components/site/CheckoutModal";
 import { ToastContainer } from "@/components/site/ToastContainer";
 import { MobileMenuDrawer } from "@/components/site/MobileMenuDrawer";
 import { ChatbotWidget } from "@/components/site/ChatbotWidget";
+import { OrderReceiptModal } from "@/components/site/OrderReceiptModal";
 
 export default function SiteLayout() {
   return (
@@ -20,7 +21,7 @@ export default function SiteLayout() {
       </main>
       <SiteFooter />
 
-      {/* Global interactive drawers, dialogs & Concierge */}
+      {/* Global interactive drawers, dialogs, Concierge & Receipt */}
       <MobileMenuDrawer />
       <CartDrawer />
       <WishlistDrawer />
@@ -30,6 +31,7 @@ export default function SiteLayout() {
       <CheckoutModal />
       <ToastContainer />
       <ChatbotWidget />
+      <OrderReceiptModal />
     </div>
   );
 }
