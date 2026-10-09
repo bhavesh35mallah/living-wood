@@ -14,6 +14,7 @@ import {
 } from "./icons";
 
 export const departments = [
+  { label: "Festive edit ✨", to: "/festive" },
   { label: "New arrivals", to: "/new-arrivals" },
   { label: "Shop all", to: "/shop-all" },
   { label: "Home & living", to: "/home-living" },
@@ -28,6 +29,7 @@ const footerGroups = [
   {
     title: "EXPLORE",
     links: [
+      { label: "Festive & Holiday edit ✨", to: "/festive" },
       { label: "New arrivals", to: "/new-arrivals" },
       { label: "Home & living", to: "/home-living" },
       { label: "Table & kitchen", to: "/table-kitchen" },

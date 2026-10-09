@@ -39,4 +39,12 @@ describe("Atelier Concierge Chatbot Engine", () => {
     expect(res.text).toContain("Dishwasher & microwave safe");
     expect(res.text).toContain("Pure Flax Linen");
   });
+
+  it("answers festive and holiday questions with recommendations", () => {
+    const res = processConciergeQuery("Show me the festive collection and holiday bundles", products);
+    expect(res.text).toContain("Festive & Holiday Collection");
+    expect(res.products).toBeDefined();
+    expect(res.products!.length).toBeGreaterThan(0);
+  });
 });
+

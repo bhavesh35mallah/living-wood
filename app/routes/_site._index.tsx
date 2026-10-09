@@ -23,6 +23,7 @@ import { useShopStore } from "@/lib/store";
 import { HeroSwiper } from "@/components/site/HeroSwiper";
 import { ProductSwiperCarousel } from "@/components/site/ProductSwiperCarousel";
 import { ReviewsSwiper } from "@/components/site/ReviewsSwiper";
+import { FestiveSection } from "@/components/site/FestiveSection";
 
 export function meta() {
   return [
@@ -1139,6 +1140,7 @@ export default function HomeRoute() {
           setDepartmentFilter(dept);
         }}
       />
+      <FestiveSection />
       <FeaturedProducts
         filter={filter}
         setFilter={setFilter}

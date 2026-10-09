@@ -197,7 +197,38 @@ export function processConciergeQuery(
     };
   }
 
-  // 9. PRODUCT SEARCH & RECOMMENDATION BASED ON USER REQUIREMENTS
+  // 9. Festive & Celebration intent
+  if (
+    q.includes("festive") ||
+    q.includes("holiday") ||
+    q.includes("celebrat") ||
+    q.includes("thanksgiving") ||
+    q.includes("christmas") ||
+    q.includes("host gift") ||
+    q.includes("bundle")
+  ) {
+    const festivePicks = allProducts.filter(
+      (p) =>
+        p.id === "gather-serving-board" ||
+        p.id === "beeswax-taper-candle-pair" ||
+        p.id === "sunday-ritual-candle" ||
+        p.id === "fluted-stoneware-carafe"
+    );
+
+    return {
+      sender: "concierge",
+      badge: "The Festive Atelier",
+      text: "Our Festive & Holiday Collection is curated for celebration and slow gathering:\n\n• **The Festive Table**: Solid European oak serving platters & fluted carafes for dinner parties.\n• **Golden Candlelight**: Hand-dipped Cotswolds beeswax tapers & botanical fig candles.\n• **Curated Gift Bundles**: Special holiday sets with complimentary pine ribbon wrapping & handwritten cotton note cards.\n• **Complimentary Delivery**: On orders $100+ (or with code **FREESHIP**).\n\nYou can explore our full collection on the [Festive Edit page](/festive).",
+      products: festivePicks.slice(0, 3),
+      actionChips: [
+        "What are your holiday delivery dates?",
+        "Do you have promo codes?",
+        "Show gifts under $50",
+      ],
+    };
+  }
+
+  // 10. PRODUCT SEARCH & RECOMMENDATION BASED ON USER REQUIREMENTS
   // Extract budget constraint
   let maxPrice: number | null = null;
   const underMatch = q.match(/under\s*\$?(\d+)/i) || q.match(/less than\s*\$?(\d+)/i) || q.match(/below\s*\$?(\d+)/i);
