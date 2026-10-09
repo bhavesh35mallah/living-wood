@@ -128,6 +128,14 @@ interface ShopStore {
   openMobileMenu: () => void;
   closeMobileMenu: () => void;
 
+  // Concierge Chatbot
+  isChatbotOpen: boolean;
+  chatbotInitialPrompt: string | null;
+  openChatbot: (initialPrompt?: string) => void;
+  closeChatbot: () => void;
+  toggleChatbot: () => void;
+  setChatbotInitialPrompt: (prompt: string | null) => void;
+
   // Mock Checkout
   isCheckoutOpen: boolean;
   orderNumber: string | null;
@@ -506,6 +514,18 @@ export const useShopStore = create<ShopStore>()(
       isMobileMenuOpen: false,
       openMobileMenu: () => set({ isMobileMenuOpen: true }),
       closeMobileMenu: () => set({ isMobileMenuOpen: false }),
+
+      // Concierge Chatbot state
+      isChatbotOpen: false,
+      chatbotInitialPrompt: null,
+      openChatbot: (initialPrompt?: string) =>
+        set({
+          isChatbotOpen: true,
+          chatbotInitialPrompt: initialPrompt || null,
+        }),
+      closeChatbot: () => set({ isChatbotOpen: false }),
+      toggleChatbot: () => set((s) => ({ isChatbotOpen: !s.isChatbotOpen })),
+      setChatbotInitialPrompt: (prompt) => set({ chatbotInitialPrompt: prompt }),
 
       // Checkout state
       isCheckoutOpen: false,

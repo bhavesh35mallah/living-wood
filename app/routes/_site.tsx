@@ -9,6 +9,7 @@ import { ArticleModal } from "@/components/site/ArticleModal";
 import { CheckoutModal } from "@/components/site/CheckoutModal";
 import { ToastContainer } from "@/components/site/ToastContainer";
 import { MobileMenuDrawer } from "@/components/site/MobileMenuDrawer";
+import { ChatbotWidget } from "@/components/site/ChatbotWidget";
 
 export default function SiteLayout() {
   return (
@@ -19,7 +20,7 @@ export default function SiteLayout() {
       </main>
       <SiteFooter />
 
-      {/* Global interactive drawers & dialogs */}
+      {/* Global interactive drawers, dialogs & Concierge */}
       <MobileMenuDrawer />
       <CartDrawer />
       <WishlistDrawer />
@@ -28,6 +29,7 @@ export default function SiteLayout() {
       <ArticleModal />
       <CheckoutModal />
       <ToastContainer />
+      <ChatbotWidget />
     </div>
   );
 }

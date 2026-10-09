@@ -9,6 +9,7 @@ import {
   MenuIcon,
   SearchIcon,
   ShieldIcon,
+  SparklesIcon,
   UserIcon,
 } from "./icons";
 
@@ -66,8 +67,16 @@ const legalLinks = [
 const payments = ["VISA", "Mastercard", "AMEX", "Apple Pay"];
 
 export function SiteHeader() {
-  const { cart, wishlist, openCart, openWishlist, openSearch, openMobileMenu, user } =
-    useShopStore();
+  const {
+    cart,
+    wishlist,
+    openCart,
+    openWishlist,
+    openSearch,
+    openMobileMenu,
+    openChatbot,
+    user,
+  } = useShopStore();
   const totalCartItems = cart.reduce((acc, i) => acc + i.quantity, 0);
   const totalWishlistItems = wishlist.length;
 
@@ -116,7 +125,18 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <div className="flex items-center justify-end gap-3.5 text-primary md:w-[300px] md:gap-6">
+        <div className="flex items-center justify-end gap-3.5 text-primary md:w-[300px] md:gap-5">
+          <button
+            type="button"
+            onClick={() => openChatbot()}
+            aria-label="Open Atelier Concierge"
+            title="Ask Concierge"
+            className="hidden sm:flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors py-1 px-2 rounded-full border border-border/80 hover:border-primary/50"
+          >
+            <SparklesIcon size={14} className="text-primary" />
+            <span className="text-[11px] font-medium uppercase tracking-wider">Concierge</span>
+          </button>
+
           <Link
             to={user?.role === "admin" ? "/admin" : "/account"}
             aria-label="Admin Dashboard"
@@ -188,7 +208,7 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
-  const { currency, setCurrency } = useShopStore();
+  const { currency, setCurrency, openChatbot } = useShopStore();
 
   function toggleCurrency() {
     if (currency === "USD") setCurrency("EUR");
@@ -244,6 +264,14 @@ export function SiteFooter() {
           <h2 className="text-[10px] font-medium tracking-[0.12em] text-primary">
             LET’S TALK
           </h2>
+          <button
+            type="button"
+            onClick={() => openChatbot()}
+            className="flex items-center gap-1.5 text-xs text-primary hover:opacity-80 font-medium transition-opacity"
+          >
+            <SparklesIcon size={14} />
+            <span>Chat with Concierge</span>
+          </button>
           <a
             href="mailto:hello@formandfield.com"
             className="text-xs text-muted-foreground transition-colors hover:text-foreground"

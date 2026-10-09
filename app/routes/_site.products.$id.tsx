@@ -8,6 +8,7 @@ import {
   MinusIcon,
   PackageCheckIcon,
   PlusIcon,
+  SparklesIcon,
   TruckIcon,
 } from "@/components/site/icons";
 import { products } from "@/data/catalog";
@@ -31,7 +32,8 @@ export function meta({ params }: { params: { id?: string } }) {
 
 export default function ProductDetailRoute() {
   const { id } = useParams();
-  const { addItem, toggleWishlist, isInWishlist, openQuickView } = useShopStore();
+  const { addItem, toggleWishlist, isInWishlist, openQuickView, openChatbot } =
+    useShopStore();
 
   const product = products.find((p) => p.id === id) || products[0];
   const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(0);
@@ -236,6 +238,20 @@ export default function ProductDetailRoute() {
               <HeartIcon fill={isSaved ? "currentColor" : "none"} size={18} />
             </button>
           </div>
+
+          {/* Concierge Styling & Care Advice Trigger */}
+          <button
+            type="button"
+            onClick={() =>
+              openChatbot(
+                `Tell me more about the ${product.title} (materials, styling advice, and care instructions).`
+              )
+            }
+            className="mt-3 flex w-full items-center justify-center gap-2 border border-border/80 bg-muted/20 py-2.5 text-xs text-foreground/80 hover:border-primary hover:text-foreground transition-all rounded-xs"
+          >
+            <SparklesIcon size={14} className="text-primary" />
+            <span>Have questions? Ask our Concierge about this piece</span>
+          </button>
 
           {/* Complimentary Shipping Banner */}
           <div className="mt-8 flex flex-col gap-3 border-y border-border py-4 text-xs text-muted-foreground">
